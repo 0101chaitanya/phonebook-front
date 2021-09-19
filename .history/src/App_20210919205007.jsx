@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import Search from "./components/Search";
 import Form from "./components/Form";
 import Numbers from "./components/Numbers";
@@ -10,15 +9,6 @@ const App = () => {
     number: "",
   });
   const [search, setSearch] = useState("");
-
-  useEffect(() => {
-    axios.get("http://localhost:3001/persons").then((res) => {
-      const data = res.data;
-      console.log(data);
-      setPersons(data);
-    });
-  }, []);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setState({
