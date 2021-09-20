@@ -11,20 +11,10 @@ const App = () => {
     number: "",
   });
   const [search, setSearch] = useState("");
-  const [notification, setNotification] = useState({
-    text: "",
-    className: "",
-  });
+
   useEffect(() => {
     getAll().then((data) => {
       setPersons(data);
-      setNotification({
-        text: "Fetched data from server",
-        className: "green",
-      });
-      setTimeout(() => {
-        setNotification("");
-      }, 5000);
     });
   }, []);
 
@@ -61,13 +51,6 @@ const App = () => {
             name: "",
             number: "",
           });
-          setNotification({
-            text: `${data.name} entry updated`,
-            className: "blue",
-          });
-          setTimeout(() => {
-            setNotification("");
-          }, 5000);
         });
       }
       return;
@@ -85,14 +68,7 @@ const App = () => {
         name: "",
         number: "",
       });
-      setNotification({
-        text: `${data.name} entry created`,
-        className: "green",
-      });
-      setTimeout(() => {
-        setNotification("");
-      }, 5000);
-      //console.log(state);
+      console.log(state);
     });
   };
 
@@ -100,13 +76,6 @@ const App = () => {
     deleteReq(id).then((res) => {
       const personList = persons.filter((persons) => persons.id !== id);
       setPersons(personList);
-      setNotification({
-        text: `entry with id ${id} deleted`,
-        className: "red",
-      });
-      setTimeout(() => {
-        setNotification("");
-      }, 5000);
     });
   };
   const handleSearch = (e) => {
@@ -115,9 +84,6 @@ const App = () => {
   return (
     <div>
       <h1>Phonebook</h1>
-      <h2>
-        <em className={notification.className}>{notification.text}</em>
-      </h2>
       <h2>Search</h2>
       <Search search={search} handleSearch={handleSearch} persons={persons} />
       <h2>Add a new</h2>

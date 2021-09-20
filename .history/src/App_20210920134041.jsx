@@ -100,13 +100,6 @@ const App = () => {
     deleteReq(id).then((res) => {
       const personList = persons.filter((persons) => persons.id !== id);
       setPersons(personList);
-      setNotification({
-        text: `entry with id ${id} deleted`,
-        className: "red",
-      });
-      setTimeout(() => {
-        setNotification("");
-      }, 5000);
     });
   };
   const handleSearch = (e) => {
@@ -116,7 +109,7 @@ const App = () => {
     <div>
       <h1>Phonebook</h1>
       <h2>
-        <em className={notification.className}>{notification.text}</em>
+        <em className="notification">{notification}</em>
       </h2>
       <h2>Search</h2>
       <Search search={search} handleSearch={handleSearch} persons={persons} />

@@ -9,17 +9,9 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
-.blue {
+.notification {
     margin: 10px;
-    color: blue;
-}
-
-.green {
-    margin: 10px;
-    color: green;
-}
-
-.red {
-    margin: 10px;
-    color: red;
+    color: blueviolet;
+    border-radius: 5px;
+    padding: 5px;
 }

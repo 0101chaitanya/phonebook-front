@@ -101,7 +101,7 @@ const App = () => {
       const personList = persons.filter((persons) => persons.id !== id);
       setPersons(personList);
       setNotification({
-        text: `entry with id ${id} deleted`,
+        text: `entry with ${id} id deleted`,
         className: "red",
       });
       setTimeout(() => {
