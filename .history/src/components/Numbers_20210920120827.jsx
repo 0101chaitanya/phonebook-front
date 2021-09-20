@@ -5,16 +5,7 @@ const Numbers = ({ persons, handleDelete }) => {
         return (
           <p key={person.name}>
             {person.name} {person.number}{" "}
-            <button
-              onClick={() => {
-                if (window.confirm("Are you sure")) {
-                  handleDelete(person.id);
-                } else {
-                  return;
-                }
-              }}>
-              Delete
-            </button>
+            <button onClick={() => handleDelete(person.id)}>Delete</button>
           </p>
         );
       })}

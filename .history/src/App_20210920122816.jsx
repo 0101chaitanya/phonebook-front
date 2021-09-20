@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-//import axios from "axios";
+import axios from "axios";
 import Search from "./components/Search";
 import Form from "./components/Form";
 import Numbers from "./components/Numbers";
-import { getAll, update, create, deleteReq } from "./services/NetworkRequests";
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [state, setState] = useState({
@@ -13,7 +12,9 @@ const App = () => {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    getAll().then((data) => {
+    axios.get("http://localhost:3001/persons").then((res) => {
+      const data = res.data;
+      console.log(data);
       setPersons(data);
     });
   }, []);
@@ -41,19 +42,16 @@ const App = () => {
           ...state,
         };
 
-        update(person.id, newObject).then((data) => {
-          setPersons(
-            persons.map((person) =>
-              person.name === state.name ? data : person
-            )
-          );
-          setState({
-            name: "",
-            number: "",
+        axios
+          .put(`http://localhost:3001/persons/${person.id}`, newObject)
+          .then((res) => {
+            setPersons(
+              person.map((person) =>
+                person.name === state.name ? newObject : person
+              )
+            );
           });
-        });
       }
-      return;
     }
     console.log(exists);
 
@@ -61,9 +59,9 @@ const App = () => {
       ...state,
     };
 
-    create(newObject).then((data) => {
-      console.log(data);
-      setPersons(persons.concat(data));
+    axios.post("http://localhost:3001/persons", newObject).then((res) => {
+      console.log(res.data);
+      setPersons(persons.concat(res.data));
       setState({
         name: "",
         number: "",
@@ -73,7 +71,7 @@ const App = () => {
   };
 
   const handleDelete = (id) => {
-    deleteReq(id).then((res) => {
+    axios.delete(`http://localhost:3001/persons/${id}`).then((res) => {
       const personList = persons.filter((persons) => persons.id !== id);
       setPersons(personList);
     });

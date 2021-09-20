@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-//import axios from "axios";
+import axios from "axios";
 import Search from "./components/Search";
 import Form from "./components/Form";
 import Numbers from "./components/Numbers";
-import { getAll, update, create, deleteReq } from "./services/NetworkRequests";
+import { getAll, update } from "./services/NetworkRequests";
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [state, setState] = useState({
@@ -14,6 +14,7 @@ const App = () => {
 
   useEffect(() => {
     getAll().then((data) => {
+      console.log(data);
       setPersons(data);
     });
   }, []);
@@ -61,9 +62,9 @@ const App = () => {
       ...state,
     };
 
-    create(newObject).then((data) => {
-      console.log(data);
-      setPersons(persons.concat(data));
+    axios.post("http://localhost:3001/persons", newObject).then((res) => {
+      console.log(res.data);
+      setPersons(persons.concat(res.data));
       setState({
         name: "",
         number: "",
@@ -73,7 +74,7 @@ const App = () => {
   };
 
   const handleDelete = (id) => {
-    deleteReq(id).then((res) => {
+    axios.delete(`http://localhost:3001/persons/${id}`).then((res) => {
       const personList = persons.filter((persons) => persons.id !== id);
       setPersons(personList);
     });

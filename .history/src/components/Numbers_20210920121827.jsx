@@ -7,7 +7,9 @@ const Numbers = ({ persons, handleDelete }) => {
             {person.name} {person.number}{" "}
             <button
               onClick={() => {
-                if (window.confirm("Are you sure")) {
+                let ans = confirm("Are you sure");
+
+                if (ans) {
                   handleDelete(person.id);
                 } else {
                   return;
