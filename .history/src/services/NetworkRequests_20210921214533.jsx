@@ -11,30 +11,9 @@ const getAll = (setNotification) => {
 };
 
 const update = (id, newObject, setNotification) => {
-  return axios
-    .put(`${url}/${id}`, newObject)
-    .then((res) => {
-      return res.data;
-    })
-    .catch((err) => {
-      if (err.response.status === 400) {
-        setNotification({
-          text: err.response.data.error, //JSON.stringify(err.response.data),
-          className: "red",
-        });
-
-        setTimeout(
-          () =>
-            setNotification({
-              text: "",
-              className: "",
-            }),
-          5000
-        );
-      }
-
-      console.info(err.response);
-    });
+  return axios.put(`${url}/${id}`, newObject).then((res) => {
+    return res.data;
+  });
 };
 
 const create = (newObject, setNotification) => {
@@ -48,18 +27,9 @@ const create = (newObject, setNotification) => {
     .catch((err) => {
       if (err.response.status === 400) {
         setNotification({
-          text: err.response.data.error, //JSON.stringify(err.response.data),
+          text: JSON.stringify(err.response.data),
           className: "red",
         });
-
-        setTimeout(
-          () =>
-            setNotification({
-              text: "",
-              className: "",
-            }),
-          5000
-        );
       }
 
       console.info(err.response);

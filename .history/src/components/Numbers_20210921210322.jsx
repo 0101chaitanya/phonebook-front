@@ -3,8 +3,10 @@ const Numbers = ({ persons, handleDelete }) => {
     <div>
       {persons.map((person) => {
         return (
-          <p key={`${person.name}${person.number}`}>
-            {person.name} {person.number}
+          <p key={`${person.name}${person.Number}`}>
+            {person.name}
+            {Math.random()}
+            {person.number}{" "}
             <button
               onClick={() => {
                 if (window.confirm("Are you sure")) {

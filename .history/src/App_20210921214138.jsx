@@ -104,7 +104,7 @@ const App = () => {
   };
 
   const handleDelete = (id) => {
-    deleteReq(id, setNotification).then((res) => {
+    deleteReq(id).then((res) => {
       const personList = persons.filter((persons) => persons.id !== id);
       setPersons(personList);
       setNotification({

@@ -16,7 +16,7 @@ const App = () => {
     className: "",
   });
   useEffect(() => {
-    getAll(setNotification).then((data) => {
+    getAll().then((data) => {
       setPersons(data);
       setNotification({
         text: "Fetched data from server",
@@ -51,7 +51,7 @@ const App = () => {
           ...state,
         };
 
-        update(person.id, newObject, setNotification).then((data) => {
+        update(person.id, newObject).then((data) => {
           setPersons(
             persons.map((person) =>
               person.name === state.name ? data : person
@@ -78,33 +78,39 @@ const App = () => {
       ...state,
     };
 
-    create(newObject, setNotification).then((data) => {
+    create(newObject).then((data) => {
       console.log(data);
       // setPersons(persons.concat(data));
 
-      getAll(setNotification).then((data) => {
+      getAll().then((data) => {
         setPersons(data);
-      });
-
-      if (data && data.name) {
         setNotification({
-          text: `${data.name} entry created`,
+          text: "Fetched data from server",
           className: "green",
         });
         setTimeout(() => {
           setNotification("");
         }, 5000);
-        setState({
-          name: "",
-          number: "",
-        });
-      }
+      });
+
+      setNotification({
+        text: `${state.name} entry created`,
+        className: "green",
+      });
+      setTimeout(() => {
+        setNotification("");
+      }, 5000);
+      setState({
+        name: "",
+        number: "",
+      });
+
       //console.log(state);
     });
   };
 
   const handleDelete = (id) => {
-    deleteReq(id, setNotification).then((res) => {
+    deleteReq(id).then((res) => {
       const personList = persons.filter((persons) => persons.id !== id);
       setPersons(personList);
       setNotification({
